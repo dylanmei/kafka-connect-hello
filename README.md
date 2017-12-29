@@ -22,12 +22,6 @@ Run the _stdout-sink_ connector
 ```
 curl -XPOST http://localhost:8083/connectors \
   -H "Content-Type: application/json" \
-  -d '{"name": "stdout-sink", "config": {"connector.class": "org.hello.StdoutSinkConnector", "tasks.max": 1, "topics": "hello-logs"}}'
-```
-
-```
-curl -XPOST http://localhost:8083/connectors \
-  -H "Content-Type: application/json" \
   -d '{
     "name": "stdout-sink",
     "config": {
@@ -43,5 +37,7 @@ curl -XPOST http://localhost:8083/connectors \
 Write messages to the `hello-logs` topic
 
 ```
-docker exec -it hello-broker /usr/bin/kafka-console-producer --broker-list localhost:9092 --topic hello-logs
+docker exec -it hello-broker /usr/bin/kafka-console-producer \
+  --broker-list localhost:9092 \
+  --topic hello-logs
 ```
