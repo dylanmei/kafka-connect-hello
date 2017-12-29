@@ -1,0 +1,40 @@
+group = "org.hello"
+version = "1.0-SNAPSHOT"
+
+apply plugin: "java"
+sourceCompatibility = 1.8
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compileOnly "org.apache.kafka:connect-api:1.0.0"
+//  compile "org.slf4j:slf4j-log4j12:1.7.21"
+//  compile "org.apache.logging.log4j:log4j-api:2.6.2"
+//  compile "org.apache.logging.log4j:log4j-core:2.6.2"
+//  compile "org.apache.logging.log4j:log4j-to-slf4j:2.6.2"
+//  compile "org.apache.flink:flink-metrics-dropwizard:${version.flink}"
+}
+
+task versionProperties {
+  doLast {
+    def version = project.version.toString()
+    def file = new File("$buildDir/resources/main/version.properties")
+    file.write("version: $version")
+  }
+}
+
+jar {
+  baseName = "kafka-connect-hello"
+  dependsOn versionProperties
+  from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+  }
+  manifest {
+    attributes 'Implementation-Title': project.name
+    attributes 'Implementation-Version': project.version
+  }
+}
