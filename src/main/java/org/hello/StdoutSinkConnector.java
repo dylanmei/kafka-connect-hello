@@ -1,7 +1,6 @@
 package org.hello;
 
 import org.apache.kafka.common.config.ConfigDef;
-import org.apache.kafka.common.config.ConfigException;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.sink.SinkConnector;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HelloSinkConnector extends SinkConnector {
+public class StdoutSinkConnector extends SinkConnector {
   private Map<String, String> configProperties;
 
   @Override
@@ -26,7 +25,7 @@ public class HelloSinkConnector extends SinkConnector {
 
   @Override
   public Class<? extends Task> taskClass() {
-    return HelloSinkTask.class;
+    return StdoutSinkTask.class;
   }
 
   @Override
