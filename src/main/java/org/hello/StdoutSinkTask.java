@@ -39,6 +39,7 @@ public class StdoutSinkTask extends SinkTask {
   public void put(Collection<SinkRecord> records) throws ConnectException {
     log.trace("Putting data records {}", records);
     for (SinkRecord record: records) {
+
       Object key = record.key();
       if (key != null) {
         System.out.print(key.toString());

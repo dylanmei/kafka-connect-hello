@@ -25,6 +25,21 @@ curl -XPOST http://localhost:8083/connectors \
   -d '{"name": "stdout-sink", "config": {"connector.class": "org.hello.StdoutSinkConnector", "tasks.max": 1, "topics": "hello-logs"}}'
 ```
 
+```
+curl -XPOST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "stdout-sink",
+    "config": {
+      "connector.class": "org.hello.StdoutSinkConnector",
+      "tasks.max": 1,
+      "topics": "hello-logs",
+      "transforms": "hello",
+      "transforms.hello.type": "org.hello.HelloTransformation"
+    }
+  }'
+```
+
 Write messages to the `hello-logs` topic
 
 ```
